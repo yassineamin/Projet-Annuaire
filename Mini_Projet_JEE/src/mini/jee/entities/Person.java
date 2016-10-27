@@ -10,14 +10,30 @@ public class Person {
 	private String emailPerson;
 	private String webSitePerson;
 	private Date birthayPerson;
+	private String pswPerson;
 	private int idGroupPerson;
 
 	public Person() {
 		super();
 	}
 
+	
+	public Person(String firstNamePerson, String lastNamePerson, String emailPerson, String webSitePerson,
+			Date birthayPerson, String pswPerson, int idGroupPerson) {
+		super();
+		this.firstNamePerson = firstNamePerson;
+		this.lastNamePerson = lastNamePerson;
+		this.emailPerson = emailPerson;
+		this.webSitePerson = webSitePerson;
+		this.birthayPerson = birthayPerson;
+		this.pswPerson = pswPerson;
+		this.idGroupPerson = idGroupPerson;
+	}
+
+
+
 	public Person(int idPerson, String firstNamePerson, String lastNamePerson, String emailPerson, String webSitePerson,
-			Date birthayPerson, int idGroupPerson) {
+			Date birthayPerson, String pswPerson, int idGroupPerson) {
 		super();
 		this.idPerson = idPerson;
 		this.firstNamePerson = firstNamePerson;
@@ -25,8 +41,23 @@ public class Person {
 		this.emailPerson = emailPerson;
 		this.webSitePerson = webSitePerson;
 		this.birthayPerson = birthayPerson;
+		this.pswPerson = pswPerson;
 		this.idGroupPerson = idGroupPerson;
 	}
+
+
+
+	public String getPswPerson() {
+		return pswPerson;
+	}
+
+
+
+	public void setPswPerson(String pswPerson) {
+		this.pswPerson = pswPerson;
+	}
+
+
 
 	public int getIdPerson() {
 		return idPerson;
@@ -83,6 +114,5 @@ public class Person {
 	public void setIdGroupPerson(int idGroupPerson) {
 		this.idGroupPerson = idGroupPerson;
 	}
-
 
 }

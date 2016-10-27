@@ -24,16 +24,16 @@ public interface IDao {
 	   Person findPerson(int idPerson) throws SQLException;
 
 	   // ajout d'une nouvelle personne
-	   Person savePerson(Person p);
+	   Person savePerson(Person p)throws SQLException;
 
 	   // ajout d'un nouveau groupe
-	   Group saveGroup(Group g);
+	   Group saveGroup(Group g) throws SQLException;
 	   
 	   // modification d'une personne
-	   Person updatePerson(Person p);
+	   Person updatePerson(Person p) throws SQLException;
 
 	   // modification d'un groupe
-	   Group updateGroup(Group g);
+	   Group updateGroup(Group g) throws SQLException;
 	   
 	   // ajout d'une personne
 	   Person deletePerson(Person p) throws SQLException;

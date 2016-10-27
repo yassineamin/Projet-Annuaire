@@ -9,6 +9,11 @@ public class Group {
 		super();
 	}
 
+	public Group(String nameGroup) {
+		super();
+		NameGroup = nameGroup;
+	}
+
 	public Group(int idGroup, String nameGroup) {
 		super();
 		this.idGroup = idGroup;
