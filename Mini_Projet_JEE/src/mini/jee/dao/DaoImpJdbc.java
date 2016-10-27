@@ -88,27 +88,54 @@ public class DaoImpJdbc implements IDao{
 
 	@Override
 	public Group findGroup(int idGroup) throws SQLException {
-		String query = "select * from group_person where idGroup="+idGroup;
+		String query = "select * from group_person";
 				
 		try (Connection conn = newConnection()) {
 			
 			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			ResultSet rs= st.executeQuery(query);
-			group = new Group(rs.getInt(1),rs.getString(2));
+			
+			while(rs.next()) if(rs.getInt(1)==idGroup) group = new Group(rs.getInt(1),rs.getString(2));
 		}
 		return group;
 	}
 
 	@Override
-	public Collection<Person> findAllPersons(int idGroup) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Person> findPersonsInGroup(int idGroup) throws SQLException {
+		String query = "select * from person";
+		Collection<Person> listPersonsInGroup = new ArrayList<Person>();
+
+		try (Connection conn = newConnection()) {
+			
+			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs= st.executeQuery(query);
+			
+			while(rs.next()){
+				if(rs.getInt(8)==idGroup){
+					person = new Person(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getInt(8));
+					listPersonsInGroup.add(person);
+				}
+			}
+		} 
+		return listPersonsInGroup;
 	}
 
 	@Override
-	public Collection<Person> findAllPersons() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Person> findAllPersons() throws SQLException {
+		String query = "select * from person";
+		Collection<Person> listAllPersons = new ArrayList<Person>();
+		
+		try (Connection conn = newConnection()) {
+			
+			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs= st.executeQuery(query);
+			
+			while(rs.next()){
+				person = new Person(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getInt(8));
+				listAllPersons.add(person);
+			}
+		}
+		return listAllPersons;
 	}
 
 	@Override

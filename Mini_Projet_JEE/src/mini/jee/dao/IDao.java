@@ -15,10 +15,10 @@ public interface IDao {
 	   Group findGroup(int idGroup) throws SQLException;
 
 	   // récupérer les personnes d'un groupe
-	   Collection<Person> findAllPersons(int idGroup);
+	   Collection<Person> findPersonsInGroup(int idGroup) throws SQLException;
 	   
 	   // récupérer les personnes 
-	   Collection<Person> findAllPersons();
+	   Collection<Person> findAllPersons() throws SQLException;
 
 	   // lire une personne
 	   Person findPerson(int idPerson);
