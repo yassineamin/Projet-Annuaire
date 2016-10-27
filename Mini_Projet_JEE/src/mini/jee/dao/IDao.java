@@ -21,7 +21,7 @@ public interface IDao {
 	   Collection<Person> findAllPersons() throws SQLException;
 
 	   // lire une personne
-	   Person findPerson(int idPerson);
+	   Person findPerson(int idPerson) throws SQLException;
 
 	   // ajout d'une nouvelle personne
 	   Person savePerson(Person p);
@@ -36,9 +36,9 @@ public interface IDao {
 	   Group updateGroup(Group g);
 	   
 	   // ajout d'une personne
-	   Person deletePerson(Person p);
+	   Person deletePerson(Person p) throws SQLException;
 
 	   // suppression d'un groupe
-	   Group deleteGroup(Group g);
+	   Group deleteGroup(Group g) throws SQLException;
 
 }

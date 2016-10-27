@@ -22,6 +22,8 @@ public class DaoImpJdbc implements IDao{
 	DaoImpJdbc dij;
 	Group group;
 	Person person;
+	String queryGroup = "select * from group_person";
+	String queryPerson = "select * from person";
 	
 	public String getNom() {
 		return nom;
@@ -70,13 +72,12 @@ public class DaoImpJdbc implements IDao{
 
 	@Override
 	public Collection<Group> findAllGroups() throws SQLException {
-		String query = "select * from group_person";
 		Collection<Group> listGroup = new ArrayList<Group>();
 
 		try (Connection conn = newConnection()) {
 			
 			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			ResultSet rs= st.executeQuery(query);
+			ResultSet rs= st.executeQuery(queryGroup);
 			
 			while(rs.next()){
 				group = new Group(rs.getInt(1),rs.getString(2));
@@ -88,12 +89,11 @@ public class DaoImpJdbc implements IDao{
 
 	@Override
 	public Group findGroup(int idGroup) throws SQLException {
-		String query = "select * from group_person";
 				
 		try (Connection conn = newConnection()) {
 			
 			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			ResultSet rs= st.executeQuery(query);
+			ResultSet rs= st.executeQuery(queryGroup);
 			
 			while(rs.next()) if(rs.getInt(1)==idGroup) group = new Group(rs.getInt(1),rs.getString(2));
 		}
@@ -102,13 +102,12 @@ public class DaoImpJdbc implements IDao{
 
 	@Override
 	public Collection<Person> findPersonsInGroup(int idGroup) throws SQLException {
-		String query = "select * from person";
 		Collection<Person> listPersonsInGroup = new ArrayList<Person>();
 
 		try (Connection conn = newConnection()) {
 			
 			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			ResultSet rs= st.executeQuery(query);
+			ResultSet rs= st.executeQuery(queryPerson);
 			
 			while(rs.next()){
 				if(rs.getInt(8)==idGroup){
@@ -122,13 +121,12 @@ public class DaoImpJdbc implements IDao{
 
 	@Override
 	public Collection<Person> findAllPersons() throws SQLException {
-		String query = "select * from person";
 		Collection<Person> listAllPersons = new ArrayList<Person>();
 		
 		try (Connection conn = newConnection()) {
 			
 			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			ResultSet rs= st.executeQuery(query);
+			ResultSet rs= st.executeQuery(queryPerson);
 			
 			while(rs.next()){
 				person = new Person(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getInt(8));
@@ -139,9 +137,17 @@ public class DaoImpJdbc implements IDao{
 	}
 
 	@Override
-	public Person findPerson(int idPerson) {
-		// TODO Auto-generated method stub
-		return null;
+	public Person findPerson(int idPerson) throws SQLException {
+		
+		try (Connection conn = newConnection()) {
+			
+			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs= st.executeQuery(queryGroup);
+			
+			while(rs.next()) if(rs.getInt(1)==idPerson) 
+				person = new Person(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDate(6),rs.getInt(8));
+		}
+		return person;
 	}
 
 	@Override
@@ -152,7 +158,7 @@ public class DaoImpJdbc implements IDao{
 
 	@Override
 	public Group saveGroup(Group g) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -169,15 +175,34 @@ public class DaoImpJdbc implements IDao{
 	}
 
 	@Override
-	public Person deletePerson(Person p) {
-		// TODO Auto-generated method stub
-		return null;
+	public Person deletePerson(Person p) throws SQLException {
+		
+		try (Connection conn = newConnection()) {
+
+			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs= st.executeQuery(queryPerson);
+
+			while(rs.next()){
+				if(rs.getInt(1)==p.getIdPerson()) rs.deleteRow();
+			}
+		}
+		return p;
 	}
 
 	@Override
-	public Group deleteGroup(Group g) {
-		// TODO Auto-generated method stub
-		return null;
+	public Group deleteGroup(Group g) throws SQLException {
+
+		
+		try (Connection conn = newConnection()) {
+
+			Statement st= (Statement) conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs= st.executeQuery(queryGroup);
+
+			while(rs.next()){
+				if(rs.getInt(1)==g.getIdGroup()) rs.deleteRow();
+			}
+		}
+		return g;
 	}
 
 	
