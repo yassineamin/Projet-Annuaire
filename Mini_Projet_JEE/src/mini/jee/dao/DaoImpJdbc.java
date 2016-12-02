@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.stereotype.Service;
+
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
@@ -16,36 +18,18 @@ import mini.jee.entities.Person;
 
 public class DaoImpJdbc implements IDao {
 
-	private String url = "jdbc:mysql://localhost/bd-projet-jee";
-	private String login = "root";
-	private String password = "";
 	Connection conn;
 	DaoImpJdbc dij;
-	PreparedStatement st = null;
-
-	public void setUrl(String url) {
-		this.url = url;
+	PreparedStatement st = null;	
+	private ConnectionJdbc my_conn ;
+	
+	
+	
+	public void setMy_conn(ConnectionJdbc my_conn) {
+		this.my_conn = my_conn;
 	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void init() throws ClassNotFoundException {
-		Class.forName("com.mysql.jdbc.Driver");
-	}
-
-	public void close() throws SQLException {
-		conn.close();
-	}
-
 	public Connection newConnection() throws SQLException {
-		conn = (Connection) DriverManager.getConnection(url, login, password);
-		return conn;
+		return my_conn.newConnection();
 	}
 
 	@Override
