@@ -17,16 +17,22 @@ public class AnnuaireController {
     @Autowired
     IAnnuaireMetier manager;
 	
-//	@RequestMapping(value="/hello")
-//	public String index(){
-//		return "hello";
-//		
-//	}
+	@RequestMapping(value="/welcome")
+	public String index(){
+		return "hello";
+		
+	}
+	
+	@RequestMapping(value="/connect")
+	public String login(){
+		return "login";
+		
+	}
     
-    @RequestMapping(value = "/welcome")
-    public ModelAndView sayHello() {
-        String now = (new Date()).toString();
-        return new ModelAndView("hello", "now", now);
-    }
+//    @RequestMapping(value = "/welcome")
+//    public ModelAndView sayHello() {
+//        String now = (new Date()).toString();
+//        return new ModelAndView("hello", "now", now);
+//    }
 		
 }
