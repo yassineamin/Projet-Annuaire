@@ -10,7 +10,8 @@ import java.util.Collection;
 import org.junit.Test;
 
 import mini.jee.dao.DaoImpJdbc;
-import mini.jee.entities.*;;
+import mini.jee.entities.*;
+import mini.jee.metier.AnnuaireMetierImpl;;
 
 public class DaoImpJdbcTest {
 
@@ -50,5 +51,12 @@ public class DaoImpJdbcTest {
 	public void testdeletegroup()throws SQLException, ParseException {
 		Group p=new Group(1,"ffff");
 		d.deleteGroup(p);
+	}
+	
+	@Test
+	public void testdeleteAllGroup() throws SQLException{
+		
+		d.deleteAllGroup();
+		
 	}
 }

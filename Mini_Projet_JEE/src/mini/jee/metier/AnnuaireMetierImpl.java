@@ -3,17 +3,19 @@ package mini.jee.metier;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
 import mini.jee.dao.IDao;
 
-@Service("IAnnuaireMetier")
+@Service
 public class AnnuaireMetierImpl implements IAnnuaireMetier{
 
 	private IDao dao ;
 	
+	@Autowired
 	public void setDao(IDao dao) {
 		this.dao = dao;
 	}

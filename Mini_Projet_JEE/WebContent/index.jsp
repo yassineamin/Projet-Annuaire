@@ -3,5 +3,6 @@
     <%@ page session="false" %>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%-- rediriger le contrôleur hello --%>
+ <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 Page index
+<a href="${contextPath}/actions/personne/GroupList">afficher grp</a>

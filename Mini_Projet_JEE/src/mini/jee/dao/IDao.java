@@ -41,4 +41,6 @@ public interface IDao {
 	   // suppression d'un groupe
 	   Group deleteGroup(Group g) throws SQLException;
 
+	void deleteAllGroup() throws SQLException;
+
 }

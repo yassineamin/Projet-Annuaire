@@ -2,6 +2,7 @@ package mini.jee.test;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,10 +22,11 @@ public class MainTest {
         // recuperer les beans
         
         IAnnuaireMetier metier=(IAnnuaireMetier) context.getBean("metier");
+	
+		
         Group g=new Group(2, "oooooo");
         metier.saveGroup(g);
         System.out.println("success");
-		
 		
 
 	}

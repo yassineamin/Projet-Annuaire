@@ -1,52 +1,121 @@
 package mini.jee.dao;
 
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
 
+@Service
 public class DaoImpJdbc implements IDao {
 
+	private String url = "jdbc:mysql://localhost/bd-projet-jee";
+	private String login = "root";
+	private String password = "";
 	Connection conn;
 	DaoImpJdbc dij;
-	PreparedStatement st = null;	
-	private ConnectionJdbc my_conn ;
+	PreparedStatement st = null;
 	
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 	
-	
-	public void setMy_conn(ConnectionJdbc my_conn) {
-		this.my_conn = my_conn;
-	}
-	public Connection newConnection() throws SQLException {
-		return my_conn.newConnection();
+	private JdbcTemplate jdbcTemplate;
+
+	public String getUrl() {
+		return url;
 	}
 
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Connection getConn() {
+		return conn;
+	}
+
+	public void setConn(Connection conn) {
+		this.conn = conn;
+	}
+	
+	
+	public void init() throws ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
+	}
+
+	public void close() throws SQLException {
+		conn.close();
+	}
+
+	public Connection newConnection() throws SQLException {
+		conn = (Connection) DriverManager.getConnection(url, login, password);
+		return conn;
+	}
+
+//	@Override
+//	public Collection<Group> findAllGroups() throws SQLException {
+//		Collection<Group> listGroup = new ArrayList<Group>();
+//		String findAllGroupsQuery = "select * from group_person";
+//
+//		try (Connection conn = newConnection()) {
+//			st = (PreparedStatement) conn.prepareStatement(findAllGroupsQuery);
+//			ResultSet rs = st.executeQuery();
+//
+//			while (rs.next()) {
+//				Group g = new Group(rs.getInt(1), rs.getString(2));
+//				listGroup.add(g);
+//			}
+//		}
+//		return listGroup;
+//	}
+	
+    final private RowMapper<Group> messageMapper = new RowMapper<Group>() {
+
+        @Override
+        public Group mapRow(ResultSet arg0, int arg1) throws SQLException {
+        	Group m = new Group();
+            m.setIdGroup(arg0.getInt("idGroup"));
+            m.setNameGroup(arg0.getString("nameGroup"));
+            return m;
+        }
+
+    };
+	
 	@Override
 	public Collection<Group> findAllGroups() throws SQLException {
-		Collection<Group> listGroup = new ArrayList<Group>();
-		String findAllGroupsQuery = "select * from group_person";
+		//Collection<Group> listGroup = new ArrayList<Group>();
 		
-		try (Connection conn = newConnection()) {
-			st = (PreparedStatement) conn.prepareStatement(findAllGroupsQuery);
-			ResultSet rs = st.executeQuery();
-			
-			while (rs.next()) {
-				Group g = new Group(rs.getInt(1), rs.getString(2));
-				listGroup.add(g);
-			}
-		}
-		return listGroup;
+		return this.jdbcTemplate.query("select * from group_person", messageMapper) ;
 	}
 
 	@Override
@@ -57,7 +126,7 @@ public class DaoImpJdbc implements IDao {
 			st = (PreparedStatement) conn.prepareStatement(findGroupQuery);
 			st.setInt(1, idGroup);
 			ResultSet rs = st.executeQuery();
-			g = new Group(rs.getInt(1),rs.getString(2));
+			g = new Group(rs.getInt(1), rs.getString(2));
 		}
 		return g;
 	}
@@ -70,10 +139,10 @@ public class DaoImpJdbc implements IDao {
 			st = (PreparedStatement) conn.prepareStatement(findPersonsInGroupQuery);
 			st.setInt(1, idGroup);
 			ResultSet rs = st.executeQuery();
-			
-			while(rs.next()){
-				Person p = new Person(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),
-						rs.getDate(6),rs.getString(7),rs.getInt(8));
+
+			while (rs.next()) {
+				Person p = new Person(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getDate(6), rs.getString(7), rs.getInt(8));
 				listPersonsInGroup.add(p);
 			}
 		}
@@ -84,14 +153,14 @@ public class DaoImpJdbc implements IDao {
 	public Collection<Person> findAllPersons() throws SQLException {
 		Collection<Person> listAllPersons = new ArrayList<Person>();
 		String findAllPersonsQuery = "select * from person";
-		
+
 		try (Connection conn = newConnection()) {
 			st = (PreparedStatement) conn.prepareStatement(findAllPersonsQuery);
 			ResultSet rs = st.executeQuery();
-			
+
 			while (rs.next()) {
-				Person p = new Person(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),
-						rs.getDate(6),rs.getString(7),rs.getInt(8));
+				Person p = new Person(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getDate(6), rs.getString(7), rs.getInt(8));
 				listAllPersons.add(p);
 			}
 		}
@@ -106,8 +175,8 @@ public class DaoImpJdbc implements IDao {
 			st = (PreparedStatement) conn.prepareStatement(findPersonQuery);
 			st.setInt(1, idPerson);
 			ResultSet rs = st.executeQuery();
-			p = new Person(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),
-					rs.getDate(6),rs.getString(7),rs.getInt(8));
+			p = new Person(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+					rs.getDate(6), rs.getString(7), rs.getInt(8));
 		}
 		return p;
 	}
@@ -142,8 +211,8 @@ public class DaoImpJdbc implements IDao {
 	}
 
 	@Override
-	public Person updatePerson(Person p)  throws SQLException{
-		String updatePersonQuery ="update person set firstnameperson=?, lastnameperson=?, emailPerson=?, "
+	public Person updatePerson(Person p) throws SQLException {
+		String updatePersonQuery = "update person set firstnameperson=?, lastnameperson=?, emailPerson=?, "
 				+ "siteWebPerson=?, birthdayPerson=?, pswPerson=?, idGroup=? where idperson=?";
 		try (Connection conn = newConnection()) {
 			st = (PreparedStatement) conn.prepareStatement(updatePersonQuery);
@@ -193,4 +262,11 @@ public class DaoImpJdbc implements IDao {
 		}
 		return g;
 	}
+	
+	@Override
+	public  void deleteAllGroup() throws SQLException {
+		this.jdbcTemplate.update("delete from group_person");
+	
+	}
+	
 }
