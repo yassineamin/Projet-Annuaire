@@ -43,4 +43,6 @@ public interface IDao {
 
 	void deleteAllGroup() throws SQLException;
 
+	Person get_Email_Pwd_Person(String emailPerson, String pswPerson) throws SQLException;
+
 }

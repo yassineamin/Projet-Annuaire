@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Groupe : </h1>
-	<table border='1'>
+	<h1>Liste des groupes : </h1>
+	<table >
 		<c:forEach items="${group}" var="prod">
 			<tr>
 				<td><c:out value="${prod.nameGroup}" /></td>

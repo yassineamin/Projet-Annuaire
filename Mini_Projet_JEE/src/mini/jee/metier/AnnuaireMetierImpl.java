@@ -76,4 +76,10 @@ public class AnnuaireMetierImpl implements IAnnuaireMetier{
 		return dao.deleteGroup(g);
 	}
 
+	@Override
+	public Person get_Email_Pwd_Person(String emailPerson, String pswPerson) throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.get_Email_Pwd_Person(emailPerson, pswPerson);
+	}
+
 }

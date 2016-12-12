@@ -115,4 +115,14 @@ public class Person {
 		this.idGroupPerson = idGroupPerson;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Person [idPerson=" + idPerson + ", firstNamePerson=" + firstNamePerson + ", lastNamePerson="
+				+ lastNamePerson + ", emailPerson=" + emailPerson + ", webSitePerson=" + webSitePerson
+				+ ", birthayPerson=" + birthayPerson + ", pswPerson=" + pswPerson + ", idGroupPerson=" + idGroupPerson
+				+ "]";
+	}
+
+	
 }

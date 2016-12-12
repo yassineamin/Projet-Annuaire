@@ -26,5 +26,9 @@
     <servlet-name>appServlet</servlet-name>
     <url-pattern>/actions/*</url-pattern>
 </servlet-mapping>
+
+<session-config>
+<session-timeout>10</session-timeout>
+</session-config>
     
 </web-app>

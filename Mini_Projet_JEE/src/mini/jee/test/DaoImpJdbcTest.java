@@ -43,13 +43,13 @@ public class DaoImpJdbcTest {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = formatter.parse("2012-12-12");
 
-		Person p=new Person("mmmmmmmmm", "bbbbbbbbbb", "gggg", "gggg", date, "ffff", 2);
+		Person p=new Person("mmmmmmmmm", "bbbbbbbbbb", "gggg", "gggg", date, "ffff", 40);
 		d.savePerson(p);
 	}
 	
 	@Test
 	public void testdeletegroup()throws SQLException, ParseException {
-		Group p=new Group(1,"ffff");
+		Group p=new Group(40,"ffff");
 		d.deleteGroup(p);
 	}
 	
@@ -58,5 +58,17 @@ public class DaoImpJdbcTest {
 		
 		d.deleteAllGroup();
 		
+	}
+	
+	@Test
+	public void testFindgroup() throws SQLException{
+		
+		 d.findGroup(40) ;
+	}
+	
+	@Test
+	public void testFindPerson() throws SQLException{
+		
+		 d.findPerson(2) ;
 	}
 }
