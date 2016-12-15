@@ -15,18 +15,21 @@ public class MainTest {
 		// TODO Auto-generated method stub
 		
 		
-		String conf = "spring.xml";
-        AbstractApplicationContext context = new ClassPathXmlApplicationContext(conf);
-        context.registerShutdownHook();
-
-        // recuperer les beans
-        
-        IAnnuaireMetier metier=(IAnnuaireMetier) context.getBean("metier");
-	
+//		String conf = "spring.xml";
+//        AbstractApplicationContext context = new ClassPathXmlApplicationContext(conf);
+//        context.registerShutdownHook();
+//
+//        // recuperer les beans
+//        
+//        IAnnuaireMetier metier=(IAnnuaireMetier) context.getBean("metier");
+//	
+//		
+//        Group g=new Group(2, "oooooo");
+//        metier.saveGroup(g);
+//        System.out.println("success");
 		
-        Group g=new Group(2, "oooooo");
-        metier.saveGroup(g);
-        System.out.println("success");
+		
+		
 		
 
 	}
