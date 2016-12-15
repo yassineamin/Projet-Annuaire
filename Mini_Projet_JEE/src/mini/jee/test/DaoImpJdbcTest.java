@@ -40,10 +40,8 @@ public class DaoImpJdbcTest {
 	
 	@Test
 	public void testSavePerson() throws SQLException, ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = formatter.parse("2012-12-12");
 
-		Person p=new Person("mmmmmmmmm", "bbbbbbbbbb", "gggg", "gggg", date, "ffff", 40);
+		Person p=new Person("mmmmmmmmm", "bbbbbbbbbb", "gggg", "gggg", "2012-12-12", "ffff", 40);
 		d.savePerson(p);
 	}
 	
@@ -70,5 +68,11 @@ public class DaoImpJdbcTest {
 	public void testFindPerson() throws SQLException{
 		
 		 d.findPerson(2) ;
+	}
+	
+	@Test
+	public void testupdatePerson() throws SQLException{
+		
+		 Person p=new Person("mmmmmmmmm", "bbbbbbbbbb", "gggg", "gggg", "2012-12-12", "ffff", 40);
 	}
 }

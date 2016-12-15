@@ -9,7 +9,7 @@ public class Person {
 	private String lastNamePerson;
 	private String emailPerson;
 	private String webSitePerson;
-	private Date birthayPerson;
+	private String birthayPerson;
 	private String pswPerson;
 	private int idGroupPerson;
 
@@ -19,7 +19,7 @@ public class Person {
 
 	
 	public Person(String firstNamePerson, String lastNamePerson, String emailPerson, String webSitePerson,
-			Date birthayPerson, String pswPerson, int idGroupPerson) {
+			String birthayPerson, String pswPerson, int idGroupPerson) {
 		super();
 		this.firstNamePerson = firstNamePerson;
 		this.lastNamePerson = lastNamePerson;
@@ -33,7 +33,7 @@ public class Person {
 
 
 	public Person(int idPerson, String firstNamePerson, String lastNamePerson, String emailPerson, String webSitePerson,
-			Date birthayPerson, String pswPerson, int idGroupPerson) {
+			String birthayPerson, String pswPerson, int idGroupPerson) {
 		super();
 		this.idPerson = idPerson;
 		this.firstNamePerson = firstNamePerson;
@@ -99,11 +99,11 @@ public class Person {
 		this.webSitePerson = webSitePerson;
 	}
 
-	public Date getBirthayPerson() {
+	public String getBirthayPerson() {
 		return birthayPerson;
 	}
 
-	public void setBirthayPerson(Date birthayPerson) {
+	public void setBirthayPerson(String birthayPerson) {
 		this.birthayPerson = birthayPerson;
 	}
 

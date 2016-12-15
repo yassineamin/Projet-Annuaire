@@ -83,11 +83,12 @@ body {
 					</tr>
 					<tr>
 						<td> <p> Mot de passe : </p> </td>
-						<td> <p> <f:input path="pswPerson" /> </p> </td>
+						<td> <p> <f:password path="pswPerson" /> </p> </td>
 						<td> <p> <f:errors path="pswPerson"></f:errors> </p> </td>
 					</tr>
 					<tr>
 						<td> <p class="submit"> <input type="submit"> </p> </td>
+						<td> <a href="../personne/savePerson" >S'enregistrer..</a> </td>
 					</tr>
 				</table>
 			</f:form>
