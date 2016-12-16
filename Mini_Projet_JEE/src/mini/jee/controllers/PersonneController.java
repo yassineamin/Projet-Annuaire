@@ -5,7 +5,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +36,6 @@ public class PersonneController {
 	@Autowired
 	IAnnuaireMetier manager;
 
-	// @ModelAttribute("person")
-	// public Collection<Person> toPersonsInGroup() throws SQLException {
-	// Collection <Person> p = new ArrayList<Person>();
-	// p = manager.findPersonsInGroup(2);
-	// return p;
-	// }
 
 	@RequestMapping(value = "/personsInGroup", method = RequestMethod.GET)
 	public String personsInGroup(@RequestParam("id") int id, Model model) throws SQLException {
@@ -59,6 +61,59 @@ public class PersonneController {
 		model.addAttribute("savePersonDbA", new Person());
 		return "savePerson";
 		}
+	
+	@RequestMapping(value="/passWordRecover")
+	public String passWordRecover(Person p,Model model){
+		
+		model.addAttribute("currEmail",new User());
+		return "recoverPwd";
+		}
+	
+
+	@RequestMapping(value="/passWordRecover2")
+	public String passWordRecover2(User u,Model model) throws SQLException{
+		
+		Person p=manager.get_Pwd_Person(u.getEmail());
+		
+		model.addAttribute("loginuser", new Person());
+		
+		String userName = "javatestyassine@gmail.com";
+		String pwd = "yassinetestjava";
+		
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+		
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+		    protected PasswordAuthentication getPasswordAuthentication() {
+		        return new PasswordAuthentication(userName, pwd);
+		    }
+		});
+		
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(userName));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(p.getEmailPerson()));
+			message.setSubject("Récupération du mot de passe ");
+			message.setText(" Bonjour "+p.getFirstNamePerson()+"\n"+"voila votre mot de passe : "+p.getPswPerson());
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			//throw new RuntimeException(e);
+			System.out.println(e.getMessage());
+		}
+		
+		return "loginForm";
+	}
 
 	@RequestMapping(value = "/profil")
 	public String profil(Model model, HttpSession session) throws SQLException {
@@ -86,10 +141,20 @@ public class PersonneController {
 
 	@RequestMapping(value = "/savePersonDb")
 	public String savePersonDb(Person p, Model model) throws SQLException {
-		model.addAttribute("savePersonDb", p);
 		manager.savePerson(p);
-
+		model.addAttribute("recherche", new Person());
+		model.addAttribute("person",null);
 		return "GroupList";
 	}
+	
+	@RequestMapping(value = "/rechercher")
+	public String rechercher(Person p, Model model) throws SQLException {
+		
+		model.addAttribute("person", manager.get_Person_by_LastName(p.getLastNamePerson()));
+		model.addAttribute("recherche", p);
+		return "GroupList";
+	}
+	
+	
 
 }

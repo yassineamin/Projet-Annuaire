@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
+import mini.jee.entities.User;
 
 public interface IDao {
 	
@@ -44,5 +45,13 @@ public interface IDao {
 	void deleteAllGroup() throws SQLException;
 
 	Person get_Email_Pwd_Person(String emailPerson, String pswPerson) throws SQLException;
+
+	public User get_Password_User(String emailPerson) throws SQLException;
+
+	Person get_Pwd_Person(String emailPerson, String pswPerson) throws SQLException;
+
+	Person get_Pwd_Person(String emailPerson) throws SQLException;
+
+	Collection<Person> get_Person_by_LastName(String lastName) throws SQLException;
 
 }

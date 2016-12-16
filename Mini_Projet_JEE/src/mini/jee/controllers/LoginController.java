@@ -30,17 +30,19 @@ public class LoginController {
 	}
 
 	@ModelAttribute("group")
-	Collection<Group> products() throws SQLException {
+	Collection<Group> groups() throws SQLException {
 		Collection<Group> g = new ArrayList<Group>();
 		g = manager.findAllGroups();
 		return g;
 	}
 
 	@RequestMapping(value = "/login.php")
-	public String login(Person p, Model model, HttpSession session) throws SQLException {
+	public String login(Person p,String chaine, Model model, HttpSession session) throws SQLException {
 		Person p1 = manager.get_Email_Pwd_Person(p.getEmailPerson(), p.getPswPerson());
+		model.addAttribute("recherche", new Person());
 		if (p1 != null) {
 			session.setAttribute("user", new User(p1.getEmailPerson(), p1.getPswPerson()));
+			model.addAttribute("person", null);
 			return "GroupList";
 		}
 

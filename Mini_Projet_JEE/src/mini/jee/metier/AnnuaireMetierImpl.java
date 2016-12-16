@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
+import mini.jee.entities.User;
 import mini.jee.dao.IDao;
 
 @Service
@@ -80,6 +81,24 @@ public class AnnuaireMetierImpl implements IAnnuaireMetier{
 	public Person get_Email_Pwd_Person(String emailPerson, String pswPerson) throws SQLException {
 		// TODO Auto-generated method stub
 		return dao.get_Email_Pwd_Person(emailPerson, pswPerson);
+	}
+
+	@Override
+	public User get_Password_User(String emailPerson) throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.get_Password_User(emailPerson);
+	}
+
+	@Override
+	public Person get_Pwd_Person(String emailPerson) throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.get_Pwd_Person(emailPerson);
+	}
+
+	@Override
+	public Collection<Person> get_Person_by_LastName(String lastName) throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.get_Person_by_LastName(lastName);
 	}
 
 }

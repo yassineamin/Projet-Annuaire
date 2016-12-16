@@ -73,6 +73,12 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-
+		<!-- Yassine AMIN : J'ai ajouté cette dependence pour que le servlet marche -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>7.0.21</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

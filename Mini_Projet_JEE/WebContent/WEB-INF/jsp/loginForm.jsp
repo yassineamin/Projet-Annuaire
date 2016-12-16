@@ -1,98 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<style>
-	@import '../../shared/mixins',
-        '../../shared/reset',
-        '../../shared/about-light';
-body {
-  font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
-  color: #404040;
-  background: #0ca3d2;
-}
+<title>Annuaire</title>
 
-.container {
-  margin: 80px auto;
-  width: 640px;
-}
+<!-- Nouveau CSS -->
+<spring:url value="/resources/style.css" var="styleCSS" />
+<link href="${styleCSS}" rel="stylesheet" />
 
-.login {
-  position: relative;
-  margin: 0 auto;
-  padding: 20px 20px 20px;
-  width: 310px;
-  background: white;
-  border-radius: 3px;
-  @include box-shadow(0 0 200px rgba(white, .5), 0 1px 2px rgba(black, .3));
+<spring:url value="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" var="link1"/>
+<link rel="stylesheet" href="${link1}">
 
-  &:before {
-    content: '';
-    position: absolute;
-    top: -8px; right: -8px; bottom: -8px; left: -8px;
-    z-index: -1;
-    background: rgba(black, .08);
-    border-radius: 4px;
-  }
+<spring:url value="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" var="link2"/>
+<link rel="stylesheet prefetch" href="${link2}">
 
-  h1 {
-    margin: -20px -20px 21px;
-    line-height: 40px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #555;
-    text-align: center;
-    text-shadow: 0 1px white;
-    background: #f3f3f3;
-    border-bottom: 1px solid #cfcfcf;
-    border-radius: 3px 3px 0 0;
-    @include linear-gradient(top, whiteffd, #eef2f5);
-    @include box-shadow(0 1px #f5f5f5);
-  }
+<spring:url value="http://fonts.googleapis.com/css?family=Montserrat:400,700" var="link3"/>
+<link rel="stylesheet prefetch" href="${link3}">
 
-  p { margin: 20px 0 0; }
-  p:first-child { margin-top: 0; }
-</style>
+<spring:url value="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" var="link4"/>
+<link rel="stylesheet prefetch" href="${link4}">
+<!-- Fin nouveau CSS -->
+
 </head>
 <body>
+	
+	<!-- Nouveau FORM -->
 	<div class="container">
-		<div class="login">
-			<h1>Authentification</h1>
-
-			<f:form method="POST" action="login.php" modelAttribute="loginuser">
-				<table>
-					<tr>
-						<td> <p> Email : </p> </td>
-						<td>
-							<p>
-								<f:input path="emailPerson"/>
-							</p>
-						</td>
-						<td>
-							<p>
-								<f:errors path="emailPerson"></f:errors>
-							</p>
-						</td>
-					</tr>
-					<tr>
-						<td> <p> Mot de passe : </p> </td>
-						<td> <p> <f:password path="pswPerson" /> </p> </td>
-						<td> <p> <f:errors path="pswPerson"></f:errors> </p> </td>
-					</tr>
-					<tr>
-						<td> <p class="submit"> <input type="submit"> </p> </td>
-						<td> <a href="../personne/savePerson" >S'enregistrer..</a> </td>
-					</tr>
-				</table>
+		<div class="info">
+			<h1>Annuaire Master Informatique</h1>
+			<span>Aix-Marseille université</span>
+		</div>
+		<div class="form">
+			<div class="thumbnail">
+				<img
+					src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/hat.svg" />
+			</div>
+			<f:form class="login-form" method="POST" action="login.php"
+				modelAttribute="loginuser">
+				<label>Email</label>
+				<f:input path="emailPerson" required="required"/>
+				<f:errors path="emailPerson"></f:errors>
+				<label>Mot de passe</label>
+				<f:password path="pswPerson" />
+				<f:errors path="pswPerson"></f:errors>
+				<input type="submit" value="Se connecter" style="background-color: #EF3B3A">
+				<p class="message">
+					Non enregistré ? <a href="../personne/savePerson">Créer un compte</a>
+				</p>
 			</f:form>
 		</div>
-		</div>
+	</div>
 </body>
 </html>

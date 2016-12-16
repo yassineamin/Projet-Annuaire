@@ -33,8 +33,10 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
 	<!-- Utiliser les annotations liées au module MVC de Spring -->
 	<mvc:annotation-driven enable-matrix-variables="true" />
 
-
+	
 </beans>

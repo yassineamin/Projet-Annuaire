@@ -1,12 +1,12 @@
 package mini.jee.dao;
 
-import java.sql.Date;
-import java.sql.DriverManager;
+
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.sql.Statement;
+
 
 import javax.sql.DataSource;
 
@@ -15,19 +15,19 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
+import mini.jee.entities.User;
 
 @Service
 public class DaoImpJdbc implements IDao {
 
-	private String url = "jdbc:mysql://localhost/bd-projet-jee";
-	private String login = "root";
-	private String password = "";
-	Connection conn;
+//	private String url = "jdbc:mysql://localhost/bd-projet-jee";
+//	private String login = "root";
+//	private String password = "";
+//	Connection conn;
 	DaoImpJdbc dij;
 	PreparedStatement st = null;
 
@@ -38,50 +38,50 @@ public class DaoImpJdbc implements IDao {
 
 	private JdbcTemplate jdbcTemplate;
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Connection getConn() {
-		return conn;
-	}
-
-	public void setConn(Connection conn) {
-		this.conn = conn;
-	}
-
-	public void init() throws ClassNotFoundException {
-		Class.forName("com.mysql.jdbc.Driver");
-	}
-
-	public void close() throws SQLException {
-		conn.close();
-	}
-
-	public Connection newConnection() throws SQLException {
-		conn = (Connection) DriverManager.getConnection(url, login, password);
-		return conn;
-	}
+//	public String getUrl() {
+//		return url;
+//	}
+//
+//	public void setUrl(String url) {
+//		this.url = url;
+//	}
+//
+//	public String getLogin() {
+//		return login;
+//	}
+//
+//	public void setLogin(String login) {
+//		this.login = login;
+//	}
+//
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
+//
+//	public Connection getConn() {
+//		return conn;
+//	}
+//
+//	public void setConn(Connection conn) {
+//		this.conn = conn;
+//	}
+//
+//	public void init() throws ClassNotFoundException {
+//		Class.forName("com.mysql.jdbc.Driver");
+//	}
+//
+//	public void close() throws SQLException {
+//		conn.close();
+//	}
+//
+//	public Connection newConnection() throws SQLException {
+//		conn = (Connection) DriverManager.getConnection(url, login, password);
+//		return conn;
+//	}
 
 	// @Override
 	// public Collection<Group> findAllGroups() throws SQLException {
@@ -318,6 +318,25 @@ public class DaoImpJdbc implements IDao {
 		return p;
 	}
 	
+	@Override
+	public Person get_Pwd_Person(String emailPerson) throws SQLException {
+		Person p =null;
+		ArrayList<Person> maliste=new ArrayList<>();
+		String findPersonQuery = "select * from person where emailPerson = '"+emailPerson+"'";
+		maliste = (ArrayList<Person>) this.jdbcTemplate.query(findPersonQuery, FindPersonMapper);
+		
+		if(!maliste.isEmpty()) return maliste.get(0);
+		return p;
+	}
+	
+	@Override
+	public Collection<Person> get_Person_by_LastName(String lastName) throws SQLException {
+
+		String findPersonQuery = "select * from person where lastNameperson = '"+lastName+"'";
+		return this.jdbcTemplate.query(findPersonQuery, FindPersonMapper);
+
+	}
+	
 //	 @Override
 //	 public Person savePerson(Person p) throws SQLException {
 //	 String savePersonQuery = "insert into person (firstnameperson,lastnameperson,emailPerson,siteWebPerson,birthdayPerson,pswPerson,idGroup) values(?,?,?,?,?,?,?)";
@@ -454,6 +473,18 @@ public class DaoImpJdbc implements IDao {
 	public void deleteAllGroup() throws SQLException {
 		this.jdbcTemplate.update("delete from group_person");
 
+	}
+
+	@Override
+	public User get_Password_User(String emailPerson) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Person get_Pwd_Person(String emailPerson, String pswPerson) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

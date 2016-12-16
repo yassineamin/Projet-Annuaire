@@ -1,7 +1,5 @@
 package mini.jee.entities;
 
-import java.util.Date;
-
 public class Person {
 
 	private int idPerson;
