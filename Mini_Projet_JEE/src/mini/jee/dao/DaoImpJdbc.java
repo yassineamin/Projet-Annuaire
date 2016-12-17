@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
@@ -488,6 +490,32 @@ public class DaoImpJdbc implements IDao {
 	}
 
 
+	// PAGINATION GROUP
+	@Override
+	public List<Group> getGroupByPage(int pageid,int total){  
+	    String sql="select * from group_person limit "+(pageid-1)+","+total;  
+	    return jdbcTemplate.query(sql,new RowMapper<Group>(){  
+	        public Group mapRow(ResultSet rs, int row) throws SQLException {  
+	            Group g=new Group();  
+	            g.setIdGroup(rs.getInt(1));  
+	            g.setNameGroup(rs.getString(2));  
+	          	return g;  
+	        }  
+	    });  
+	}
+	
+	
+	
+	@Override
+	public Collection<Group> findAllGroupsByPage(int pageid,int total) throws SQLException {
 
+		return this.jdbcTemplate.query("select * from group_person limit "+(pageid-1)+","+total, GroupMapper);
+	}
 
+	@Override
+	public int countGroups(){
+		int count = jdbcTemplate.queryForObject("select count(*) from group_person",int.class);
+		return count;
+	}
+	
 }

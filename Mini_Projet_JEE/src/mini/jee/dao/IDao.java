@@ -2,6 +2,10 @@ package mini.jee.dao;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.jdbc.core.RowCallbackHandler;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
@@ -53,5 +57,15 @@ public interface IDao {
 	Person get_Pwd_Person(String emailPerson) throws SQLException;
 
 	Collection<Person> get_Person_by_LastName(String lastName) throws SQLException;
+	
+	public List<Group> getGroupByPage(int pageid,int total) throws SQLException;
+
+	Collection<Group> findAllGroupsByPage(int pageid,int total) throws SQLException;
+
+	int countGroups() throws SQLException;
+
+
+	
+
 
 }

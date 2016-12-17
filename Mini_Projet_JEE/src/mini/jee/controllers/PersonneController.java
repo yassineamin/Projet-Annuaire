@@ -129,7 +129,7 @@ public class PersonneController {
 		System.out.println(p.getIdPerson());
 		manager.updatePerson(p);
 
-		return "profil";
+		return "Accueil";
 	}
 
 	@ModelAttribute("group")
