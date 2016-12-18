@@ -55,13 +55,15 @@ public class LoginController {
 	        }  
 	        
 	       List<Integer> nbrepage = new ArrayList<>();
-	       
-	        if(count%2==0){
+	       if(count<total){
+	    	   nbrepage.add(1);
+	       }
+	       else if(count%2==0){
 	        	for(int i = 1; i<=count/10;i++){
 	        		nbrepage.add(i);
 	        	}
 	        }else{
-	        	for(int i=1; i<count/10;i++){
+	        	for(int i=1; i<=count/10;i++){
 	        		nbrepage.add(i);
 	        	}
 	        	nbrepage.add(nbrepage.size()+1);

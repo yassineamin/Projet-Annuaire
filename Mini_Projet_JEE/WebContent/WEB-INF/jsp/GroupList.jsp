@@ -34,25 +34,19 @@
 <!-- Fin nouveau CSS -->
 </head>
 <body>
-<!-- 		<table> -->
-<%-- 			<c:forEach items="${group}" var="grp"> --%>
-<!-- 				<tr> -->
-<%-- 					<td><a href="../personne/personsInGroup?id=${grp.idGroup}"> --%>
-<%-- 							<c:out value="${grp.nameGroup}" /> --%>
-<!-- 					</a></td> -->
-<%-- 					<td><c:out value="${grp.nameGroup}" /></td> --%>
-<%-- 					<td><i><c:out value="${grp.idGroup}" /></i></td> --%>
-<!-- 				</tr> -->
-<%-- 			</c:forEach> --%>
 
-		</table>
 	<!-- Nouveau FORM -->
 	<div class="container">
 		<div class="info">
 			<h1>Annuaire Master Informatique</h1>
 			<span>Aix-Marseille université</span>
 		</div>
-		
+		<table class="header">
+			<tr class="headertr">
+				<td class="headertd"><a href="../login.php">Accueil</a></td>
+				<td class="headertd"><a href="../../personne/profil">Profil</a></td>
+			</tr>
+		</table>
 		<div class="form">
 			<div class="thumbnail">
 				<img
@@ -60,58 +54,62 @@
 			</div>
 			<table>
 				<tr>
-					
+
 					<th>Liste des groupes</th>
 				</tr>
 				<c:forEach var="grp" items="${list}">
 					<tr>
-						<td><a href="${contextPath}/actions/personne/personsInGroup?id=${grp.idGroup}"> 
- 						<c:out value="${grp.nameGroup}" /> 	</a> </td>
+						<td><a href="../../personne/personsInGroup?id=${grp.idGroup}">
+								<c:out value="${grp.nameGroup}" />
+						</a></td>
 					</tr>
 				</c:forEach>
 			</table>
-			
+
 			<c:forEach items="${nbrepage}" var="grps">
 				<a href="../grouplist/${grps}"><c:out value="${grps}"></c:out></a>
 			</c:forEach>
-</div></div>
-			<br /> <br> <br> 
+		</div>
+	</div>
+	<br />
+	<br>
+	<br>
 
-			<div>
-				<f:form method="POST" action="../personne/rechercher"
-					modelAttribute="recherche">
-					<table>
-						<tr>
-							<td>
-								<p>
-									<f:input path="lastNamePerson" required="required" />
-								</p>
-							</td>
-						<tr>
-							<td>
-								<p class="submit">
-									<input type="submit" value="Rechercher">
-								</p>
-							</td>
-						</tr>
-					</table>
-				</f:form>
-			</div>
-			<c:if test="${person != null}">
-				<h1>Liste des personnes rechérchées :</h1>
-				<table>
-					<c:forEach items="${person}" var="p">
-						<tr>
-							<td><c:out value="${p.idPerson}" /></td>
-							<td><c:out value="${p.firstNamePerson}" /></td>
-							<td><c:out value="${p.lastNamePerson}" /></td>
-							<td><c:out value="${p.emailPerson}" /></td>
-							<td><c:out value="${p.webSitePerson}" /></td>
-							<td><c:out value="${p.birthayPerson}" /></td>
-							<td><c:out value="${p.idGroupPerson}" /></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
+	<div>
+		<f:form method="POST" action="../personne/rechercher"
+			modelAttribute="recherche">
+			<table>
+				<tr>
+					<td>
+						<p>
+							<f:input path="lastNamePerson" required="required" />
+						</p>
+					</td>
+				<tr>
+					<td>
+						<p class="submit">
+							<input type="submit" value="Rechercher">
+						</p>
+					</td>
+				</tr>
+			</table>
+		</f:form>
+	</div>
+	<c:if test="${person != null}">
+		<h1>Liste des personnes rechérchées :</h1>
+		<table>
+			<c:forEach items="${person}" var="p">
+				<tr>
+					<td><c:out value="${p.idPerson}" /></td>
+					<td><c:out value="${p.firstNamePerson}" /></td>
+					<td><c:out value="${p.lastNamePerson}" /></td>
+					<td><c:out value="${p.emailPerson}" /></td>
+					<td><c:out value="${p.webSitePerson}" /></td>
+					<td><c:out value="${p.birthayPerson}" /></td>
+					<td><c:out value="${p.idGroupPerson}" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 </body>
 </html>

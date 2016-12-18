@@ -53,20 +53,25 @@ public class PersonneController {
 	public ModelAndView personList(@PathVariable int pageid, Model model) throws SQLException{
 		model.addAttribute("recherche", new Person());
 		model.addAttribute("person", null);
-		 int total=20;  
+		 int total=10;  
 	        if(pageid==1){}  
 	        else{  
 	            pageid=(pageid-1)*total+1;  
 	        }  
 	        
 	       List<Integer> nbrepage = new ArrayList<>();
+	       System.out.println("nbre de personn : "+count);
 	       
-	        if(count%2==0){
-	        	for(int i = 1; i<=count/20;i++){
+	       if(count<total){
+	    	   nbrepage.add(1);
+	       }
+	       else if(count%2==0){
+	        	System.out.println("premier if");
+	        	for(int i = 1; i<=count/10;i++){
 	        		nbrepage.add(i);
 	        	}
 	        }else{
-	        	for(int i=1; i<count/20;i++){
+	        	for(int i=1; i<=count/10;i++){
 	        		nbrepage.add(i);
 	        	}
 	        	nbrepage.add(nbrepage.size()+1);
@@ -74,6 +79,7 @@ public class PersonneController {
 	        
 	        List<Person> list=manager.getPersonByPage(pageid, total); 
 	        System.out.println(list.get(1));
+	        System.out.println("nbre page : "+nbrepage.size());
 		return new ModelAndView("PersonList","list",list).addObject("nbrepage", nbrepage);  
 	}
 

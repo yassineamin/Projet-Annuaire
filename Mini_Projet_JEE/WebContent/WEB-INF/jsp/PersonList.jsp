@@ -40,7 +40,12 @@
 			<h1>Annuaire Master Informatique</h1>
 			<span>Aix-Marseille université</span>
 		</div>
-
+		<table class="header">
+			<tr>
+				<td><a href="../../user/login.php">Accueil</a></td>
+				<td><a href="../../personne/profil">Profil</a></td>
+			</tr>
+		</table>
 		<div class="form">
 			<div class="thumbnail">
 				<img
@@ -59,14 +64,14 @@
 						<td><c:out value="${p.lastNamePerson}"></c:out></td>
 						<td><c:out value="${p.firstNamePerson}"></c:out></td>
 						<td><c:out value="${p.webSitePerson}"></c:out></td>
- 						<td><c:out value="${p.idGroupPerson}"></c:out></td>
+						<td><c:out value="${p.idGroupPerson}"></c:out></td>
 					</tr>
 				</c:forEach>
 			</table>
-
-			<c:forEach items="${nbrepage}" var="grps">
-				<a href="../personlist/${grps}"><c:out value="${grps}"></c:out></a>
+			<c:forEach items="${nbrepage}" var="p">
+				<a href="../personlist/${p}"><c:out value="${p}"></c:out></a>
 			</c:forEach>
+
 		</div>
 	</div>
 	<br />

@@ -29,6 +29,7 @@
 			<h1>Annuaire Master Informatique</h1>
 			<span>Aix-Marseille université</span>
 		</div>
+		
 		<div class="form">
 			<div class="thumbnail">
 				<img
