@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Liste des groupes</title>
 <!-- Nouveau CSS -->
 <spring:url value="/resources/style.css" var="styleCSS" />
 <link href="${styleCSS}" rel="stylesheet" />
@@ -34,18 +34,18 @@
 <!-- Fin nouveau CSS -->
 </head>
 <body>
-	<!-- 	<table> -->
-	<%-- 		<c:forEach items="${group}" var="grp"> --%>
-	<!-- 			<tr> -->
-	<%-- 				<td><a href="../personne/personsInGroup?id=${grp.idGroup}"> --%>
-	<%-- 						<c:out value="${grp.nameGroup}" /> --%>
-	<!-- 				</a></td> -->
-	<%-- 				<td><c:out value="${grp.nameGroup}" /></td> --%>
-	<%-- 				<td><i><c:out value="${grp.idGroup}" /></i></td> --%>
-	<!-- 			</tr> -->
-	<%-- 		</c:forEach> --%>
+<!-- 		<table> -->
+<%-- 			<c:forEach items="${group}" var="grp"> --%>
+<!-- 				<tr> -->
+<%-- 					<td><a href="../personne/personsInGroup?id=${grp.idGroup}"> --%>
+<%-- 							<c:out value="${grp.nameGroup}" /> --%>
+<!-- 					</a></td> -->
+<%-- 					<td><c:out value="${grp.nameGroup}" /></td> --%>
+<%-- 					<td><i><c:out value="${grp.idGroup}" /></i></td> --%>
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
 
-	<!-- 	</table> -->
+		</table>
 	<!-- Nouveau FORM -->
 	<div class="container">
 		<div class="info">
@@ -70,7 +70,7 @@
 					</tr>
 				</c:forEach>
 			</table>
-
+			
 			<c:forEach items="${nbrepage}" var="grps">
 				<a href="../grouplist/${grps}"><c:out value="${grps}"></c:out></a>
 			</c:forEach>

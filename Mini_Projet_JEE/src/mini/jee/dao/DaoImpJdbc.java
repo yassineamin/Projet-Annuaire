@@ -7,13 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
@@ -504,6 +502,25 @@ public class DaoImpJdbc implements IDao {
 	    });  
 	}
 	
+	// PAGINATION PERSON
+		@Override
+		public List<Person> getPersonByPage(int pageid,int total){  
+		    String sql="select * from person limit "+(pageid-1)+","+total;  
+		    return jdbcTemplate.query(sql,new RowMapper<Person>(){  
+		        public Person mapRow(ResultSet rs, int row) throws SQLException {  
+		            Person m=new Person();  
+		            m.setIdPerson(rs.getInt(1));
+					m.setFirstNamePerson(rs.getString(2));
+					m.setLastNamePerson(rs.getString(3));
+					m.setEmailPerson(rs.getString(4));
+					m.setWebSitePerson(rs.getString(5));
+					m.setBirthayPerson(rs.getString(6));
+					m.setPswPerson(rs.getString(7));
+					m.setIdGroupPerson(rs.getInt(8));
+		          	return m;  
+		        }  
+		    });  
+		}
 	
 	
 	@Override
@@ -515,6 +532,18 @@ public class DaoImpJdbc implements IDao {
 	@Override
 	public int countGroups(){
 		int count = jdbcTemplate.queryForObject("select count(*) from group_person",int.class);
+		return count;
+	}
+	
+	@Override
+	public Collection<Person> findAllPersonsByPage(int pageid,int total) throws SQLException {
+
+		return this.jdbcTemplate.query("select * from person limit "+(pageid-1)+","+total, PersonMapper);
+	}
+
+	@Override
+	public int countPersons(){
+		int count = jdbcTemplate.queryForObject("select count(*) from person",int.class);
 		return count;
 	}
 	

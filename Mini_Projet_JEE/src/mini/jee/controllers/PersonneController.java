@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -20,9 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
@@ -36,6 +39,43 @@ public class PersonneController {
 	@Autowired
 	IAnnuaireMetier manager;
 
+	Collection<Person> p = new ArrayList<Person>();
+	int count =0;
+	@ModelAttribute("person")
+	Collection<Person> groups() throws SQLException {
+		p = manager.findAllPersons();
+		count = manager.countPersons();
+		System.out.println(count);
+		return p;
+	}
+	
+	@RequestMapping(value="/personlist/{pageid}")
+	public ModelAndView personList(@PathVariable int pageid, Model model) throws SQLException{
+		model.addAttribute("recherche", new Person());
+		model.addAttribute("person", null);
+		 int total=20;  
+	        if(pageid==1){}  
+	        else{  
+	            pageid=(pageid-1)*total+1;  
+	        }  
+	        
+	       List<Integer> nbrepage = new ArrayList<>();
+	       
+	        if(count%2==0){
+	        	for(int i = 1; i<=count/20;i++){
+	        		nbrepage.add(i);
+	        	}
+	        }else{
+	        	for(int i=1; i<count/20;i++){
+	        		nbrepage.add(i);
+	        	}
+	        	nbrepage.add(nbrepage.size()+1);
+	        }
+	        
+	        List<Person> list=manager.getPersonByPage(pageid, total); 
+	        System.out.println(list.get(1));
+		return new ModelAndView("PersonList","list",list).addObject("nbrepage", nbrepage);  
+	}
 
 	@RequestMapping(value = "/personsInGroup", method = RequestMethod.GET)
 	public String personsInGroup(@RequestParam("id") int id, Model model) throws SQLException {
@@ -51,11 +91,10 @@ public class PersonneController {
 	    for(int i=0 ; i<liste.size() ; i++){
 	    	types.put(liste.get(i).getIdGroup(),liste.get(i).getNameGroup() );
 	    }
-	    
-	  //  types.put("type1", "Type 1");
 
 	    return types;
 	}
+	
 	@RequestMapping(value="/savePerson")
 	public String savePerson(Model model){
 		model.addAttribute("savePersonDbA", new Person());

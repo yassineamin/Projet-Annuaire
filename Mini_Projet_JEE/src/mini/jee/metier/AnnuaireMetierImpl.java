@@ -3,10 +3,8 @@ package mini.jee.metier;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Service;
 
 import mini.jee.entities.Group;
@@ -120,6 +118,24 @@ public class AnnuaireMetierImpl implements IAnnuaireMetier{
 	public int countGroups() throws SQLException {
 		// TODO Auto-generated method stub
 		return dao.countGroups();
+	}
+
+	@Override
+	public Collection<Person> findAllPersonsByPage(int pageid, int total) throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.findAllPersonsByPage(pageid, total);
+	}
+
+	@Override
+	public int countPersons() throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.countPersons();
+	}
+
+	@Override
+	public List<Person> getPersonByPage(int pageid, int total) throws SQLException {
+		// TODO Auto-generated method stub
+		return dao.getPersonByPage(pageid, total);
 	}
 
 }

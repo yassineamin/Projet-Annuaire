@@ -3,9 +3,6 @@ package mini.jee.metier;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.jdbc.core.RowCallbackHandler;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
@@ -58,4 +55,11 @@ public interface IAnnuaireMetier {
 
 	List<Group> findAllGroupsByPage(int pageid, int total);
 	int countGroups() throws SQLException;
+	
+	Collection<Person> findAllPersonsByPage(int pageid, int total) throws SQLException;
+
+	int countPersons()throws SQLException;
+	
+	List<Person> getPersonByPage(int pageid, int total)throws SQLException;
+
 }

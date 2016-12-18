@@ -3,9 +3,6 @@ package mini.jee.dao;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.jdbc.core.RowCallbackHandler;
 
 import mini.jee.entities.Group;
 import mini.jee.entities.Person;
@@ -63,6 +60,12 @@ public interface IDao {
 	Collection<Group> findAllGroupsByPage(int pageid,int total) throws SQLException;
 
 	int countGroups() throws SQLException;
+
+	Collection<Person> findAllPersonsByPage(int pageid, int total) throws SQLException;
+
+	int countPersons()throws SQLException;
+
+	List<Person> getPersonByPage(int pageid, int total)throws SQLException;
 
 
 	

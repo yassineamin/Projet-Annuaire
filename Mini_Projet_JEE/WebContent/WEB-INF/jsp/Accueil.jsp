@@ -37,6 +37,8 @@
 			
 			<a href="../user/grouplist/1">Afficher les groupes</a>
 			<br><br>
+			<a href="../personne/personlist/1">Afficher les personnes</a>
+			<br><br>
 			<a href="../personne/profil">Modifier le profil</a>	
 			
 		</div>
